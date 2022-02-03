@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+            integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+            crossorigin="anonymous">
+        </script>
+    </head>
+    <body>
+        <div id=view>
+            <h2 id=viewText>loading...</h2>
+        </div>
+        <script>
+            $(function() {
+                setInterval(checkNoSave, 1000)
+            });
+
+            function checkNoSave() {
+                fetch("http://192.81.241.171/", {
+                    method: "GET",
+                    mode: "no-cors",
+                })
+                .then(resp => {
+                    // console.log(resp);
+                    if (resp.status === 0) {
+                        document.getElementById("view").innerHTML = `
+                            <span>
+                                <h2 style="display: inline">
+                                    no-save
+                                </h2>
+                                <h1 style="display: inline; color: red">
+                                    DISABLED
+                                </h1>
+                            </span>
+                        `;
+                    }
+                })
+                .catch(e => {
+                    // console.log(e);
+                    document.getElementById("view").innerHTML = `
+                        <span>
+                            <h2 style="display: inline">
+                                no-save
+                            </h2>
+                            <h1 style="display: inline; color: green">
+                                ENABLED
+                            </h1>
+                        </span>
+                    `;
+                })
+            }
+        </script>
+    </body>
+</html>
